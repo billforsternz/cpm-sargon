@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SargonEmu", "SargonEmu.vcxproj", "{57A168EC-8D58-4827-8D3B-106720B2EFEB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hex2com", "hex2com\hex2com.vcxproj", "{6D94D9DA-A143-4181-B526-E7050E176A5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{57A168EC-8D58-4827-8D3B-106720B2EFEB}.Release|x64.Build.0 = Release|x64
 		{57A168EC-8D58-4827-8D3B-106720B2EFEB}.Release|x86.ActiveCfg = Release|Win32
 		{57A168EC-8D58-4827-8D3B-106720B2EFEB}.Release|x86.Build.0 = Release|Win32
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Debug|x64.ActiveCfg = Debug|x64
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Debug|x64.Build.0 = Debug|x64
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Debug|x86.ActiveCfg = Debug|Win32
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Debug|x86.Build.0 = Debug|Win32
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Release|x64.ActiveCfg = Release|x64
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Release|x64.Build.0 = Release|x64
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Release|x86.ActiveCfg = Release|Win32
+		{6D94D9DA-A143-4181-B526-E7050E176A5C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
