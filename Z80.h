@@ -159,6 +159,7 @@ void PatchZ80(register Z80 *R);
 /** the CPU, and given the Z80 registers. Emulation exits   **/
 /** if DebugZ80() returns 0.                                **/
 /*************************************************************/
+#define JUMPZ80
 #ifdef _DEBUG
     #define DEBUG
     #define JUMPZ80
