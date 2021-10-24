@@ -2189,6 +2189,21 @@ EXIT    MACRO
         call    osexit
         ENDM
 
+;*** LOG some text to supervisor ***        
+LOG     MACRO   TXT
+        push    af
+        push    bc
+        push    de
+        push    hl
+        call    announce
+        db      TXT
+        db      0
+        pop     hl
+        pop     de
+        pop     bc
+        pop     af
+        ENDM
+
 ;***********************************************************
 ; MAIN PROGRAM DRIVER
 ;***********************************************************
@@ -2767,11 +2782,13 @@ CHARTR: ;RST     38h             ; Jove monitor single char inpt
 ; ARGUMENTS: --   Returns a 1 in the A register if a new
 ;                 page was turned.
 ;***********************************************************
-PGIFND: LD      hl,LINECT       ; Addr of page position counter
+PGIFND: LOG    'PGIFND'
+        LD      hl,LINECT       ; Addr of page position counter
         INC     (hl)            ; Increment
         LD      a,1BH           ; Page bottom ?
         CP      (hl)
         RET     NC              ; No - return
+        LOG     'PGIFND hit'
         CALL    DSPBRD          ; Put up new page
         PRTLIN  TITLE4,15       ; Re-print titles
         PRTLIN  TITLE3,15
@@ -2793,7 +2810,8 @@ PGIFND: LD      hl,LINECT       ; Addr of page position counter
 ;
 ; ARGUMENTS:  --  None
 ;***********************************************************
-MATED:  LD      a,(KOLOR)       ; Computers color
+MATED:  LOG     'MATED'
+        LD      a,(KOLOR)       ; Computers color
         AND     a               ; Is computer white ?
         JR      Z,rel23         ; Yes - skip
         LD      c,2             ; Set black piece flag
@@ -3010,7 +3028,8 @@ RY0C:   LD      a,(M1)          ; Current position
 ;                 system dependent. Each such reference will
 ;                 be marked.
 ;***********************************************************
-DSPBRD: PUSH    bc              ; Save registers
+DSPBRD: LOG     'DSPBRD'
+        PUSH    bc              ; Save registers
         PUSH    de
         PUSH    hl
         PUSH    af
@@ -3261,7 +3280,8 @@ rel025: SRA     a
 ;                 pair HL. Number of times to blink passed in
 ;                 register B.
 ;***********************************************************
-BLNKER: PUSH    af              ; Save registers
+BLNKER: LOG     'BLNKER'
+        PUSH    af              ; Save registers
         PUSH    bc
         PUSH    de
         PUSH    hl
@@ -3440,6 +3460,11 @@ con_outs:
         push    bc
         push    de
         push    hl
+        LOG     'con_outs ->'
+        push    hl
+        ld      c,99
+        call    bdos
+        pop     hl
 c02:    ld      a,(hl)
         inc     hl
         cmp     0
@@ -3457,6 +3482,11 @@ con_len:
         push    bc
         push    de
         push    hl
+        LOG     'con_len ->'
+        push    hl
+        ld      c,98
+        call    bdos
+        pop     hl
 c04:    ld      a,(hl)
         inc     hl
         call    con_out
@@ -3465,4 +3495,19 @@ c04:    ld      a,(hl)
         pop     de
         pop     bc
         pop     af
+        ret
+
+;Constant asciiz string follows call to announce. LOG macro
+;calls this and saves all registers for caller
+announce:
+        pop     de
+        ld      h,d
+        ld      l,e
+a01:    ld      a,(de)
+        inc     de
+        cp      0
+        jr      nz,a01
+        push    de
+        ld      c,99    ;private BDOS call
+        call    bdos
         ret
