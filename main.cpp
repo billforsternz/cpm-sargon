@@ -589,7 +589,7 @@ int setup_ansi_escape()
 //        return -1;
 //    }
 //
-//    return 0;
+    return 0;
 }
 
 
